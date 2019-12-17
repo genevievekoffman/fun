@@ -1,0 +1,17 @@
+.container{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.title{
+    font-size: 1em;
+    border-bottom: 0.5px solid black;
+    width: fit-content;
+}
+
+.subInfo{
+    font-size: 0.8em;
+}
+
+.coverImg{
+    width: 100px
+}

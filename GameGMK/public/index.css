@@ -4,7 +4,6 @@
 
 .title{
     font-size: 1em;
-    border-bottom: 0.5px solid black;
     width: fit-content;
 }
 
@@ -14,4 +13,72 @@
 
 .coverImg{
     width: 100px
+}
+
+.topBar{
+  display: flex;
+  float: right;
+}
+
+.subText{
+  margin-left:2em;
+  font-size: 0.8em;
+}
+ 
+.title{
+  color: black;
+  font-family: cursive;
+  font-size: 3.8em;
+}
+ 
+.header{
+     
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+/* navigation bar css below */
+
+.top-nav {
+  overflow: hidden;
+  color: black;
+}
+
+.top-nav a {
+  float: left;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 1em;
+  color:black;
+}
+
+.top-nav a:hover {
+  border-bottom: 1px solid black;
+  color: grey;
+}
+ 
+
+.searchBox{
+    border: 0.2px solid grey;
+}
+
+/* makes box dissapear when clicked anywhere else */
+.js-is-hidden {
+	display: none;
+}
+
+.container {
+    border: 1px solid black;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.recipeName{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 2em;
+}
+
+.foodBox{
+    
 }

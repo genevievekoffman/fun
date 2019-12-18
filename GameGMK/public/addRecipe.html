@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="addRecipe.css">
+</head>
+<body>
+    <a href = "/index.html">Cancel </a>
+    <p>Add a Recipe</p>
+
+        <div>
+            <form onsubmit="createMeal(event); return false" class="centerText">
+                What do you want to call your recipe? 
+                <input type='text' name='title' placeholder="title"><br>
+                Add an image url for your recipe :)
+                <input type='text' name='url' placeholder="url"><br>
+                What meal is it? <br>
+                <input type="radio" name="meal" value="breakfast" checked> breakfast<br>
+                <input type="radio" name="meal" value="lunch"> lunch<br>
+                <input type="radio" name="meal" value="dinner"> dinner<br>
+                <input type="radio" name="meal" value="snacks"> snacks<br>
+                <input type="radio" name="meal" value="dessert"> dessert<br>
+                How many stars is it? <br> 
+                <input type='text' name='stars' placeholder="10/10"><br>
+                <input type='submit' value='Create Meal'><br>
+            </form>
+        </div>
+
+        <script src="addRecipe.js"></script>
+</body>
+</html>

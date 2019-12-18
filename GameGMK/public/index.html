@@ -8,39 +8,83 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <form onsubmit="searchGame(event)"> 
-        Search by name: <input type = "text" name = 'name' placeholder= "Name of Game"><br>
-    </form>
+    <div class = "header">
 
-    <form onsubmit="searchGamebyRating(event)"> 
-            Search by ratings: <input type = "text" name = 'rating' placeholder= "Rating out of 5"><br>
-    </form>
+      <div class = 'topBar' id = 'topBar'> 
+            <div class = "searchBox" id = "searchBox" style = "display: none">
+                    <form onsubmit="searchRecipe(event)"> 
+                            Search by name: <input type = "text" name = 'name' placeholder= "Name of Recipe"><br>
+                        </form>
+                    
+                        <form onsubmit="searchRecipebyStars(event)"> 
+                                Search by stars: <input type = "text" name = 'stars' placeholder= "stars"><br>
+                        </form>
+                    
+                        <form onsubmit="searchRecipebyMeal(event)"> 
+                                Search by meal: <input type = "text" name = 'meal' placeholder= " meal"><br>
+                        </form>
+                    
+                        <br>
+            </div>
 
-    <form onsubmit="searchGamebyAudience(event)"> 
-            Search by audience: <input type = "text" name = 'audience' placeholder= " audiences: 'e' 't' 'm' "><br>
-    </form>
+        <div class = 'subText' onclick="showSearch()" id = "searchBtn"> Search </div>
+        <div class = 'subText'> Bag </div>
+        <a class = 'subText' href = "/login.html"> Sign In </a>
+      </div>
+      
+        <div class = 'title'> genevieve's recipes </div>
+       
+        <div class = "top-nav"> 
+            <a class="active" href="#home">Home</a>
+            <a href="#saved">Saved</a>
+            <a href="#explore">Favorites</a>
+            <a href="/addRecipe.html">Create</a>
+        </div>
+      </div>
+       
 
-    <br>
-    <div class = "container" id = "container"></div>
+      <script>
+      function showSearch(){
+          console.log("search pressed")
+          document.getElementById("searchBox").style.display = ""; //shows it
+        wait();
+       
+        }
+        function wait(){
+             document.addEventListener("click", function(event) {
+                //If user clicks inside the element or the search button do nothing
+                  if (event.target.closest(".searchBox")) return;
+                  if (event.target.closest(".topBar")) return;
+                    // If user clicks outside the element, hide it!
+                    document.getElementById("searchBox").style.display = "none";
+             })
+        }
+        
+        </script>
+
+ 
+    <div class = "container" id = "container">
+        
+    </div>
     
 
      
 
     <script>
-        function searchGamebyAudience(e){
+        function searchRecipebyMeal(e){
             e.preventDefault();
-            let audience = e.target.elements.audience.value;
-            if (audience == 'e' || audience == 'm' || audience == 't'){
-                fetch('/getByAudience', {
+            let meal = e.target.elements.meal.value;
+            if (meal == 'breakfast' || meal == 'lunch' || meal == 'dinner' || meal == 'snacks' || meal == 'dessert'){
+                fetch('/getByMeal', {
                 method: 'POST',
-                body: JSON.stringify({audience}),
+                body: JSON.stringify({meal}),
                 headers: {
                     'Content-Type': 'application/json'
                     }
                 }).then(response => {
                     console.dir(response)
                 response.json().then(data => {
-                    present(data.audience)
+                    present(data.meal)
                 });
             });
             } else {
@@ -48,13 +92,13 @@
             }
 
         }
-        function searchGamebyRating(e){
+        function searchRecipebyStars(e){
             e.preventDefault();
-            let rating = e.target.elements.rating.value;
+            let stars = e.target.elements.stars.value;
 
-            fetch('/getByRating', {
+            fetch('/getByStars', {
                 method: 'POST',
-                body: JSON.stringify({rating}),
+                body: JSON.stringify({stars}),
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -63,13 +107,13 @@
                 response.json().then(data => {
                 console.log(data)
                 
-                present(data.rating)
+                present(data.stars)
 
             });
         });
         }
 
-        function searchGame(e){
+        function searchRecipe(e){
             e.preventDefault();
             let name = e.target.elements.name.value;
 
@@ -90,19 +134,20 @@
         });
     }
     
-    function present(data){ //passed an array of games 
+    function present(data){ //passed an array of recipes 
         console.log(data)
         document.getElementById("container").innerHTML = ""; //clears it
         for(var x = 0; x < data.length; x++){
             var present = document.getElementById("container").innerHTML;
-            var updated = present + `<div class = "title">` + data[x].title + '</div> <div class = "subInfo">Publisher: ' + data[x].publisher + '<br>Year of Release: ' 
-                + data[x].yearOfRelease + ' <br>Ratings: ' + data[x].ratings + '<br>Audience: ' + data[x].audience + '<br>Number of Players: ' + data[x].numberOfPlayers + `<br></div>
-                <img class = "coverImg" src =` + data[x].selectedImage + `>`
+            var updated = present + `<div class = "foodBox"><div class = "recipeName">` + data[x].title + '</div> <div class = "subInfo">Stars: ' + data[x].stars + '<br>Ingredients: ' 
+                + data[x].ingredients + ' <br>Meal: ' + data[x].meal + '<br>Instructions: ' + data[x].instructions + `<br></div><br>
+                <img class = "coverImg" src =` + data[x].coverImg + `><br></div>`
             document.getElementById("container").innerHTML = updated;
         }
          
 
     }
     </script>
+    <script src="index.js"></script>
 </body>
 </html>

@@ -42,10 +42,10 @@ var chocChipCookie = new Recipes({
 });
  
 
-chocChipCookie.save((err, chocChipCookie) => {
-    if(err) return console.error(err);
-    console.log('chocChipCookie was saved')
-})
+// chocChipCookie.save((err, chocChipCookie) => {
+//     if(err) return console.error(err);
+//     console.log('chocChipCookie was saved')
+// })
 
 var chocCake = new Recipes({
     title: "Chocolate Cake",
@@ -60,10 +60,10 @@ var chocCake = new Recipes({
     "Pour cake batter into cake pans. Bake for 30-35 minutes at 350º F."]
 });
 
-chocCake.save((err, chocCake) => {
-    if(err) return console.error(err);
-    console.log('chocCake was saved')
-})
+// chocCake.save((err, chocCake) => {
+//     if(err) return console.error(err);
+//     console.log('chocCake was saved')
+// })
 
 app.post('/getByName', (req, res) => {
     let name = req.body.name;
@@ -103,14 +103,42 @@ app.post('/getByMeal', (req, res) => {
 })
  
  
-let port = process.env.PORT || 3001;
+let port = process.env.PORT || 3003;
 
 app.listen(port,function () {
     console.log("server is listening on port", port);
 });
 
+app.post('/saveRecipe', (req, res)=>{
+    console.log(req.body);
+    var newRecipe = new Recipes({
+        title: req.body.information.title,
+        coverImg: req.body.information.image,
+        stars: req.body.information.stars,
+        ingredients: [""],
+        meal: req.body.information.meal,
+        instructions: [""]
+    });
+    newRecipe.save((err, newRecipe) => {
+        if(err) return console.error(err);
+        console.log('a new recipe was saved: ' + req.body.information.title)
+    })
+})
+
+app.post('/saveIngredients', (req, res)=>{
+    console.log("adding ingredients to " + req.body.title + " recipe");
+    Recipes.updateMany({title: req.body.title}, {"$set": { ingredients: req.body.ingredients }},(err,docs)=>{
+            console.log(docs)
+        })
+})
 
  
+ 
+
+ 
+// Users.updateMany({ name: 'Nadav' }, {"$set": { password: 'A1b2c3d4' }},(err,docs)=>{
+//     console.log(docs)
+// });
 
  
 

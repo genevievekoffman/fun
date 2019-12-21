@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <form onsubmit="searchGame(event)"> 
+        Search by name: <input type = "text" name = 'name' placeholder= "Name of Game"><br>
+    </form>
+
+    <form onsubmit="searchGamebyRating(event)"> 
+            Search by ratings: <input type = "text" name = 'rating' placeholder= "Rating out of 5"><br>
+    </form>
+
+    <form onsubmit="searchGamebyAudience(event)"> 
+            Search by audience: <input type = "text" name = 'audience' placeholder= " audiences: 'e' 't' 'm' "><br>
+    </form>
+
+    <br>
+    <div class = "container" id = "container"></div>
+    
+
+     
+
+    <script>
+        function searchGamebyAudience(e){
+            e.preventDefault();
+            let audience = e.target.elements.audience.value;
+            if (audience == 'e' || audience == 'm' || audience == 't'){
+                fetch('/getByAudience', {
+                method: 'POST',
+                body: JSON.stringify({audience}),
+                headers: {
+                    'Content-Type': 'application/json'
+                    }
+                }).then(response => {
+                    console.dir(response)
+                response.json().then(data => {
+                    present(data.audience)
+                });
+            });
+            } else {
+                console.log("Sorry that is not valid")
+            }
+
+        }
+        function searchGamebyRating(e){
+            e.preventDefault();
+            let rating = e.target.elements.rating.value;
+
+            fetch('/getByRating', {
+                method: 'POST',
+                body: JSON.stringify({rating}),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                console.dir(response)
+                response.json().then(data => {
+                console.log(data)
+                
+                present(data.rating)
+
+            });
+        });
+        }
+
+        function searchGame(e){
+            e.preventDefault();
+            let name = e.target.elements.name.value;
+
+            fetch('/getByName', {
+                method: 'POST',
+                body: JSON.stringify({name}),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                console.dir(response)
+                response.json().then(data => {
+                console.log(data)
+                
+                present(data.names)
+
+            });
+        });
+    }
+    
+    function present(data){ //passed an array of games 
+        console.log(data)
+        document.getElementById("container").innerHTML = ""; //clears it
+        for(var x = 0; x < data.length; x++){
+            var present = document.getElementById("container").innerHTML;
+            var updated = present + `<div class = "title">` + data[x].title + '</div> <div class = "subInfo">Publisher: ' + data[x].publisher + '<br>Year of Release: ' 
+                + data[x].yearOfRelease + ' <br>Ratings: ' + data[x].ratings + '<br>Audience: ' + data[x].audience + '<br>Number of Players: ' + data[x].numberOfPlayers + `<br></div>
+                <img class = "coverImg" src =` + data[x].selectedImage + `>`
+            document.getElementById("container").innerHTML = updated;
+        }
+         
+
+    }
+    </script>
+</body>
+</html>

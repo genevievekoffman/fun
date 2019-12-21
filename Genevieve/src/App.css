@@ -1,0 +1,22 @@
+.App {
+  text-align: center;
+}
+
+
+ 
+
+ .Present{
+   border: 1px solid black;
+ }
+
+ h2{
+   font-family: 'Courier New', Courier, monospace;
+   color: blue;
+   font-size: 40px;
+ }
+
+ .title{
+   width: 100%;
+   justify-content: center;
+   text-align: center;
+ }

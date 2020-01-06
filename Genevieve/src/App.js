@@ -18,7 +18,7 @@ export default function App(){
             <Link to = "/">Home</Link>
           </li>
           <li>
-            <Link to = "/information">Information</Link>
+            <Link to = "/favorites">Favorites</Link>
           </li>
         </ul>
 
@@ -27,8 +27,8 @@ export default function App(){
           <Route exact path ="/">
             <Home />
           </Route>
-          <Route path = "/information">
-            <Information />
+          <Route path = "/favorites">
+            <Favorites />
           </Route>
         </Switch>
       </div>
@@ -41,17 +41,20 @@ function Home(){
   return (
     <div className = "title">
       <h2>Home</h2>
-      <p1>
+      <p>
         Welcome Home. Add a user below. 
-      </p1>
+      </p>
       <form onSubmit = {getInfo}>
           <input type = "text" name = "name" placeholder = "enter name"  />
            
           <input type = "submit" value = "ok"/>
       </form>   
-      <h>{infoList}</h>
+      <h1>{infoList}</h1>
     </div>
-  );
+     
+     
+       
+  )
 
   function getInfo(e){ //event listener
     e.preventDefault();
@@ -65,11 +68,12 @@ function Home(){
   function setList(e){
     setInfoList(e.target.elements.name.value)
   }
+
 }
-function Information(){
+function Favorites(){
   return (
     <div className = "title">
-      <h2>Information</h2>
+      <h2>Favorites</h2>
     </div>
   );
 }
